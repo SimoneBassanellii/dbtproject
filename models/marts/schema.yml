@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: fact_ordini
+    columns:
+      - name: id_ordine
+        tests:
+          - unique
+          - not_null
+      - name: importo_pagato
+        tests:
+        #  - not_null
+
+  - name: flat_ordini
+    tests:
+      - dbt_utils.equal_rowcount:
+          arguments:
+            compare_model: "{{ ref('fact_ordini') }}"
